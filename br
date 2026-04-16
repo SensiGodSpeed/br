@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GodSpeed | Domine o Free Fire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            --black: #000000;
+            --deep-space: #020617;
+            --electric-blue: #00f2ff; 
+            --gold: #ffd700;
+            /* Vermelho removido da paleta principal */
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo-font { font-family: 'Orbitron', sans-serif; }
+
+        /* Background Dinâmico - Tons de azul e dourado sutil */
+        .bg-gradient-custom {
+            background: radial-gradient(circle at top right, rgba(0, 242, 255, 0.15) 0%, var(--black) 50%),
+                        radial-gradient(circle at bottom left, rgba(255, 215, 0, 0.05) 0%, var(--black) 40%);
+        }
+
+        /* Logo GodSpeed Preservada */
+        .logo-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1;
+        }
+        .god-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--electric-blue);
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.9), 0 0 30px rgba(0, 242, 255, 0.4);
+            margin-bottom: -6px;
+            padding-left: 2px;
+            font-style: italic;
+        }
+        .speed-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 10px var(--electric-blue), 0 0 20px var(--electric-blue);
+            letter-spacing: 2px;
+        }
+        .bolt-overlay {
+            position: absolute;
+            top: 45%;
+            left: -15%;
+            width: 130%;
+            height: 12px;
+            background: var(--gold);
+            clip-path: polygon(0% 50%, 30% 20%, 45% 45%, 60% 0%, 55% 55%, 80% 30%, 100% 100%, 50% 70%, 40% 90%, 30% 60%, 0% 50%);
+            box-shadow: 0 0 20px var(--gold);
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        /* Botão Elétrico - Combinando com a Logo (Azul/Dourado) */
+        .btn-electric {
+            background: linear-gradient(90deg, #004e52, #00f2ff);
+            border: 1px solid var(--gold);
+            color: black;
+            font-weight: 900;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+        }
+        .btn-electric:hover {
+            box-shadow: 0 0 25px var(--electric-blue), 0 0 10px var(--gold);
+            transform: scale(1.05);
+            color: white;
+        }
+        .btn-electric::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: rotate(45deg);
+            animation: moveLight 2s infinite;
+        }
+
+        @keyframes moveLight {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* WhatsApp Flutuante - Versão Gold/Blue */
+        .wp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            width: 65px;
+            height: 65px;
+            background: var(--black);
+            border: 2px solid var(--gold);
+            color: var(--electric-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            animation: pulse-gold 2s infinite;
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .card-glass {
+            background: rgba(0, 242, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            transition: 0.3s;
+        }
+        .card-glass:hover {
+            border: 1px solid var(--gold);
+            background: rgba(0, 242, 255, 0.07);
+        }
+
+        .loader-wrapper {
+            position: fixed;
+            inset: 0;
+            background: black;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Texto com degradê azul/branco */
+        .text-gradient-blue {
+            background: linear-gradient(to bottom, #ffffff, var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gradient-custom">
+
+    <div id="loader" class="loader-wrapper">
+        <div class="text-center">
+            <div class="logo-container animate-pulse">
+                <div class="god-text">GOD</div>
+                <div class="speed-text">SPEED</div>
+                <div class="bolt-overlay"></div>
+            </div>
+            <p class="mt-4 text-xs tracking-widest text-blue-400 uppercase">Sincronizando Frequência...</p>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-50 bg-black/90 border-b border-blue-900/30 p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="logo-container scale-75 origin-left">
+                <div class="god-text">GOD</div>
+                <div class="speed-text">SPEED</div>
+                <div class="bolt-overlay"></div>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wider">
+                <a href="#home" class="hover:text-blue-400 transition">Início</a>
+                <a href="#recursos" class="hover:text-blue-400 transition">O que você recebe</a>
+                <a href="#como-funciona" class="hover:text-blue-400 transition">Como Funciona</a>
+                <a href="#compra" class="hover:text-blue-400 transition">Adquirir</a>
+            </div>
+            <a href="https://wa.me/5500000000000?text=Olá, quero adquirir o GodSpeed 🚀" class="btn-electric px-4 py-2 rounded text-xs font-bold uppercase">Acesso Imediato</a>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen pt-32 px-4 flex flex-col items-center justify-center text-center">
+        <span class="text-gold text-sm font-bold tracking-[0.4em] mb-4 uppercase flex items-center gap-2">
+            <i class="fas fa-bolt text-yellow-400"></i> Performance de Elite
+        </span>
+        <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight">
+            AUMENTE SUA PRECISÃO <br> <span class="text-gradient-blue">JOGUE COMO UM PRO</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mb-10 text-lg">
+            O GodSpeed é o sistema definitivo de otimização mobile. Ajustes finos de sensibilidade e remoção total de input lag para você não errar nenhum capa.
+        </p>
+        
+        <div class="relative group cursor-pointer mb-12">
+            <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-yellow-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+            <button onclick="location.href='#compra'" class="btn-electric relative px-10 py-5 rounded-lg text-xl font-black italic">
+                QUERO MINHA SENSI PERFEITA
+            </button>
+        </div>
+    </section>
+
+    <section id="recursos" class="py-20 px-4 bg-black/80 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black mb-4 italic uppercase">O PODER <span class="text-gradient-blue">2 EM 1</span> DA GODSPEED</h2>
+                <p class="text-gray-400">Ao adquirir hoje, você desbloqueia o ecossistema completo de um jogador PRO.</p>
+                <div class="h-1 w-24 bg-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-glass p-8 rounded-3xl border-2 border-blue-900/20 hover:border-gold transition-all group overflow-hidden relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition">
+                        <i class="fas fa-microchip text-7xl text-blue-400"></i>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/30">
+                            <i class="fas fa-rocket text-blue-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Pacote de Otimização <br><span class="text-gold text-sm uppercase tracking-widest">Performance Máxima</span></h3>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Esqueça travamentos e quedas de FPS. Nosso pacote de otimização foi desenvolvido para **extrair 100% do poder do seu hardware**, limpando processos desnecessários e garantindo uma fluidez nunca antes vista no seu dispositivo.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-xs font-bold text-gold italic">
+                        <i class="fas fa-bolt text-yellow-400"></i> FLUIDEZ TOTAL GARANTIDA
+                    </div>
+                </div>
+
+                <div class="card-glass p-8 rounded-3xl border-2 border-blue-900/20 hover:border-gold transition-all group overflow-hidden relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition">
+                        <i class="fas fa-crosshairs text-7xl text-gold"></i>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/30">
+                            <i class="fas fa-bullseye text-blue-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Auxílio de Mira <br><span class="text-gold text-sm uppercase tracking-widest">Precisão Cirúrgica</span></h3>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        O algoritmo GodSpeed aumenta drasticamente o **controle e a estabilidade da sua mira**. Projetado para que cada movimento seja detectado com precisão milimétrica, facilitando o rastreio do inimigo e o encaixe de capas constantes.
+                    </p>
+                    <div class="mt-6 flex items-center gap-2 text-xs font-bold text-blue-400 italic">
+                        <i class="fas fa-shield-halved"></i> CONFIGURACÕES 100% SEGURAS & PERSONALIZADAS PARA SEU DISPOSITIVO
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <p class="mb-6 font-bold text-gray-300">⚠️ Vantagem competitiva desleal para quem usa.</p>
+                <button onclick="location.href='#compra'" class="btn-electric px-12 py-5 rounded-full font-black text-lg italic shadow-[0_0_30px_rgba(0,242,255,0.2)]">
+                    ADQUIRIR OS DOIS RECURSOS AGORA
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="py-24 px-4 bg-black/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 uppercase">COMO O <span class="text-blue-400">GODSPEED</span> ATUA?</h2>
+                <div class="h-1 w-24 bg-gold mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="card-glass p-6 rounded-2xl border-l-4 border-blue-400">
+                        <h3 class="text-xl font-bold text-blue-400 mb-2">01. Calibração de Hardware</h3>
+                        <p class="text-gray-300">Otimizamos a resposta do touch do seu Android ou iOS, reduzindo o tempo entre o toque e a ação no jogo.</p>
+                    </div>
+                    <div class="card-glass p-6 rounded-2xl border-l-4 border-gold">
+                        <h3 class="text-xl font-bold text-gold mb-2">02. Sensi VIP Individual</h3>
+                        <p class="text-gray-300">Ajustes específicos para cada modelo de celular. Nada de configurações genéricas que não funcionam.</p>
+                    </div>
+                    <div class="card-glass p-6 rounded-2xl border-l-4 border-blue-400">
+                        <h3 class="text-xl font-bold text-blue-400 mb-2">03. Estabilidade de FPS</h3>
+                        <p class="text-gray-300">Scripts de limpeza e otimização que garantem que seu celular foque 100% do poder no Free Fire.</p>
+                    </div>
+                </div>
+                <div class="relative">
+    <img src="freefire.png" alt="Demonstração GodSpeed" class="rounded-3xl border-2 border-blue-900/50 shadow-[0_0_30px_rgba(0,242,255,0.2)] w-full object-cover">
+    
+    <div class="absolute -bottom-5 -right-5 bg-blue-600 p-6 rounded-2xl font-black italic text-black shadow-[0_0_20px_var(--electric-blue)]">
+        COMPATÍVEL APENAS <br> PARA DISPOSITIVOS ANDROIDS
+    </div>
+</div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="compra" class="py-24 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-8 italic uppercase">DESBLOQUEIE SUA MELHOR <span class="text-gold">GAMEPLAY</span></h2>
+            
+            <div class="card-glass p-8 md:p-12 rounded-3xl border-2 border-blue-600 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gold px-6 py-2 font-bold text-sm uppercase tracking-tighter text-black">Oferta por Tempo Limitado</div>
+                
+                <div class="grid md:grid-cols-2 gap-8 text-left">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-blue-400 uppercase">Benefícios Inclusos:</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 font-bold"><i class="fas fa-plus-circle text-gold"></i> Pacote de Otimização GodSpeed</li>
+                            <li class="flex items-center gap-3 font-bold"><i class="fas fa-plus-circle text-gold"></i> Auxílio de Mira Profissional</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-blue-400"></i> Arquivos de Sensibilidade VIP</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-blue-400"></i> Suporte Prioritário via WhatsApp</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-gold"></i> Totalmente legit sem modificar arquivos do jogo</li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col justify-center items-center bg-blue-950/20 rounded-2xl p-6 border border-blue-400/20">
+                        <span class="text-gray-500 line-through">De R$ 97,00</span>
+                        <div class="text-5xl font-black text-white my-2 text-shadow-blue">R$ 37,90</div>
+                        <p class="text-xs text-gold mb-6 uppercase tracking-widest">Pagamento Único • Acesso Imediato</p>
+                        <button onclick="window.location.href='https://wa.me/5500000000000?text=Quero o Pack GodSpeed agora!'" class="btn-electric w-full py-4 rounded-xl font-black text-xl uppercase italic">
+                            QUERO O COMBO AGORA 🚀
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-12 border-t border-blue-900/30 text-left">
+                    <h4 class="font-bold mb-4 uppercase text-blue-400">Dúvidas Frequentes:</h4>
+                    <div class="text-sm text-gray-400 space-y-2">
+                        <p><strong>Dá ban?</strong> Não. O GodSpeed trabalha com otimização de sistema e sensibilidade nativa.</p>
+                        <p><strong>Recebo os dois produtos?</strong> Sim, o acesso inclui tanto o pacote de otimização quanto o meu auxilio por call no discord.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-blue-900/30 text-center text-gray-600 text-sm">
+        <div class="logo-container scale-50 opacity-50 mb-4 mx-auto flex justify-center">
+            <div class="god-text">GOD</div>
+            <div class="speed-text">SPEED</div>
+            <div class="bolt-overlay"></div>
+        </div>
+        <p>&copy; 2026 GodSpeed Mobile. Todos os direitos reservados.</p>
+    </footer>
+
+    <a href="https://wa.me/5500000000000?text=Olá, quero adquirir o GodSpeed 🚀" class="wp-float" title="Falar com Suporte">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 1000);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
